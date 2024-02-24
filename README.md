@@ -34,3 +34,166 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+###
+
+⚡ Next.js with App Router support
+🔥 Type checking TypeScript
+💎 Integrate with Tailwind CSS
+✅ Strict Mode for TypeScript and React 18
+
+📏 Linter with ESLint (default NextJS, NextJS Core Web Vitals, Tailwind CSS and Airbnb configuration)
+
+💖 Code Formatter with Prettier
+🦊 Husky for Git Hooks
+🚫 Lint-staged for running linters on Git staged files
+🚓 Lint git commit with Commitlint
+📓 Write standard compliant commit messages with Commitizen
+
+🦺 Unit Testing with Jest and React Testing Library
+🧪 Integration and E2E Testing with Playwright
+
+🌐 Multi-language (i18n) with next-intl and Crowdin
+
+☂️ Code coverage with Codecov
+🎁 Automatic changelog generation with Semantic Release
+🗂 VSCode configuration: Debug, Settings, Tasks and Extensions
+
+### 代码规范
+
+#### 代码检查工具 ESLint
+
+使用 create-next-app 创建的 Next.js 项目已经配置好了 ESLint，只需要按照项目需要修改对应配置即可。这里我们加上 prettier 的配置，让 ESLint 和 Prettier 能够更和谐的一起工作。参照[文档](https://prettier.io/docs/en/install#eslint-and-other-linters)
+
+1. eslint-plugin-prettier: 这是一个 ESLint 插件，将 Prettier 作为 ESLint 规则运行。这意味着你可以使用 ESLint 运行 Prettier 的格式化功能。当代码不符合 Prettier 的格式化规则时，eslint-plugin-prettier 会报告格式化错误。这样做的好处是可以在一个命令中同时运行 ESLint 的代码质量检查和 Prettier 的代码格式化，简化了开发流程。
+2. eslint-config-prettier: 这是一个 ESLint 配置，用于关闭所有不必要的或可能与 Prettier 冲突的 ESLint 规则。当同时使用 ESLint 和 Prettier 时，一些 ESLint 规则可能与 Prettier 的格式化规则冲突，导致不一致的代码风格。通过使用 eslint-config-prettier，可以确保 ESLint 的规则不会干扰 Prettier 的代码格式化，从而保持代码风格的一致性。
+
+
+
+```bash
+npm install --save-dev eslint-plugin-prettier eslint-config-prettier
+```
+
+`.eslintrc.json`
+
+```json
+{
+  "extends": ["next/core-web-vitals", "plugin:prettier/recommended"],
+  "plugins": [
+    "prettier" // 确保"prettier"插件已被添加
+  ],
+  "rules": {
+    // 可以在这里覆盖特定的规则设置
+    "prettier/prettier": "error" // 或者使用"warn"，这样Prettier的错误将以警告的形式展示
+  }
+}
+```
+
+"extends": ["plugin:prettier/recommended"]做了三件事：
+
+1. 启用 eslint-plugin-prettier：这实际上将 Prettier 作为 ESLint 规则运行。这意味着任何 Prettier 发现的格式问题都会作为 ESLint 问题报告出来。
+2. 添加 prettier 到 ESLint 的配置中：这确保了 Prettier 的规则优先级最高，有助于解决其他 ESLint 规则可能与 Prettier 冲突的问题。
+3. 禁用与 Prettier 冲突的 ESLint 规则：通过内部使用 eslint-config-prettier，它自动关闭所有不必要的或可能与 Prettier 冲突的 ESLint 规则。
+
+#### 代码风格工具 Prettier
+
+```bash
+npm i -D prettier-plugin-organize-imports prettier-plugin-tailwindcss
+
+```
+
+我们使用了 Tailwind CSS 推荐额外安装 prettier-plugin-tailwindcss，可以帮忙自动排序 className。
+并且我们额外安装可以帮助排序 import 的插件：prettier-plugin-organize-imports
+
+接着在 `.prettierrc.json` 文件中配置如下：
+
+```json
+{
+  "plugins": [
+    "prettier-plugin-organize-imports",
+    "prettier-plugin-tailwindcss"
+  ],
+  "tailwindFunctions": ["classNames"],
+  "singleQuote": true,
+  "trailingComma": "es5"
+}
+```
+
+### 同步编辑器设置和扩展
+在项目中加上 .vscode 文件夹，配置编辑器的扩展和自动校验和修复的设置，让其他同学接入项目也能快速上手和使用相同的配置、扩展。
+
+`.vscode/extensions.json`
+```json
+{
+  "recommendations": [
+    // Linting / Formatting
+    "esbenp.prettier-vscode",
+    "dbaeumer.vscode-eslint",
+    "bradlc.vscode-tailwindcss"
+  ]
+}
+```
+
+`.vscode/settings.json`
+
+```json
+{
+// 默认情况下，对所有语言使用 Prettier 进行格式化
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+// 使用 Prettier 格式化 JavaScript，覆盖 VSCode 默认设置。
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+// 使用 ESLint 进行代码校验。
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ],
+
+// 启用文件嵌套。
+  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.patterns": {
+    "*.ts": "$(capture).test.ts, $(capture).test.tsx",
+    "*.tsx": "$(capture).test.ts, $(capture).test.tsx"
+  }
+}
+```
+
+### git规范
+
+Git 有很多的 hooks, 让我们在不同的阶段,对代码进行不同的操作,控制提交到仓库的代码的规范性,和准确性, 以下只是几个常用的钩子
+
+#### 提交的代码规范 husky
+pre-commit
+描述: 通过钩子函数,判断提交的代码是否符合规范
+
+#### 提交的信息规范 commitlint
+commit-msg
+描述: 通过钩子函数,判断 commit 信息是否符合规范
+
+#### 提交的代码影响
+pre-push
+描述: 通过钩子,执行测试,避免对以前的内容造成影响
+
+
+
+==================================
+
+### husky & lint-staged
+
+使用 husky 和 lin-staged 可以在 Git 提交代码时对提交的部分进行 ESLint 的代码校验和 prettier 的格式化，避免有些新同事编辑器中没有装对应插件和开启自动修复。安装配置也十分简单。
+
+```bash
+npm install --save-dev husky lint-staged
+npx husky install
+npm pkg set scripts.prepare="husky install"
+npx husky add .husky/pre-commit "npx lint-staged"
+```
+
+.lintstagedrc.js
