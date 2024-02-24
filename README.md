@@ -181,9 +181,7 @@ echo "npm run commitlint \${1}" > .husky/commit-msg
 echo "npx --no -- commitlint --edit \$1" > .husky/commit-msg
 ```
 
-在项目root目录下配置 commitlint 使用常规配置:
-
-新创建`commitlint.config.js`文件，写入如下代码：
+在项目root目录下新建`commitlint.config.js`文件，写入如下代码：
 
 ```js
 module.exports = {
@@ -359,7 +357,7 @@ pnpm install -D release-it @release-it/conventional-changelog
 }
 ```
 
-💥 先提交本地所有修改的代码之后，执行：
+💥 先提交本地所有更改过的代码之后，执行：
 
 ```bash
 pnpm run release
