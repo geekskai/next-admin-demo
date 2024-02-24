@@ -263,13 +263,18 @@ config
 npx lint-staged
 ```
 
-==================================
+`.lintstagedrc.js`的配置如下
 
-```bash
-npm install --save-dev husky lint-staged
-npx husky install
-npm pkg set scripts.prepare="husky install"
-npx husky add .husky/pre-commit "npx lint-staged"
+```js
+const path = require('path');
+
+const buildEslintCommand = (filenames) =>
+  `next lint --fix --file ${filenames
+    .map((f) => path.relative(process.cwd(), f))
+    .join(' --file ')}`;
+
+module.exports = {
+  '*.{js,jsx,ts,tsx}': [buildEslintCommand], // 这些格式的文件在提交时交给 ESLint 校验
+  '**/*.{js,jsx,tsx,ts,less,md,json}': ['prettier --write'], // 这些格式的文件在提交时让 prettier 格式化
+};
 ```
-
-.lintstagedrc.js
