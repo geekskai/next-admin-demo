@@ -68,10 +68,8 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 1. eslint-plugin-prettier: 这是一个 ESLint 插件，将 Prettier 作为 ESLint 规则运行。这意味着你可以使用 ESLint 运行 Prettier 的格式化功能。当代码不符合 Prettier 的格式化规则时，eslint-plugin-prettier 会报告格式化错误。这样做的好处是可以在一个命令中同时运行 ESLint 的代码质量检查和 Prettier 的代码格式化，简化了开发流程。
 2. eslint-config-prettier: 这是一个 ESLint 配置，用于关闭所有不必要的或可能与 Prettier 冲突的 ESLint 规则。当同时使用 ESLint 和 Prettier 时，一些 ESLint 规则可能与 Prettier 的格式化规则冲突，导致不一致的代码风格。通过使用 eslint-config-prettier，可以确保 ESLint 的规则不会干扰 Prettier 的代码格式化，从而保持代码风格的一致性。
 
-
-
 ```bash
-npm install --save-dev eslint-plugin-prettier eslint-config-prettier
+pnpm add --save-dev eslint-plugin-prettier eslint-config-prettier
 ```
 
 `.eslintrc.json`
@@ -98,7 +96,7 @@ npm install --save-dev eslint-plugin-prettier eslint-config-prettier
 #### 代码风格工具 Prettier
 
 ```bash
-npm i -D prettier-plugin-organize-imports prettier-plugin-tailwindcss
+pnpm add -D prettier prettier-plugin-organize-imports prettier-plugin-tailwindcss
 
 ```
 
@@ -120,9 +118,11 @@ npm i -D prettier-plugin-organize-imports prettier-plugin-tailwindcss
 ```
 
 ### 同步编辑器设置和扩展
+
 在项目中加上 .vscode 文件夹，配置编辑器的扩展和自动校验和修复的设置，让其他同学接入项目也能快速上手和使用相同的配置、扩展。
 
 `.vscode/extensions.json`
+
 ```json
 {
   "recommendations": [
@@ -138,17 +138,17 @@ npm i -D prettier-plugin-organize-imports prettier-plugin-tailwindcss
 
 ```json
 {
-// 默认情况下，对所有语言使用 Prettier 进行格式化
+  // 默认情况下，对所有语言使用 Prettier 进行格式化
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
   },
-// 使用 Prettier 格式化 JavaScript，覆盖 VSCode 默认设置。
+  // 使用 Prettier 格式化 JavaScript，覆盖 VSCode 默认设置。
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-// 使用 ESLint 进行代码校验。
+  // 使用 ESLint 进行代码校验。
   "eslint.validate": [
     "javascript",
     "javascriptreact",
@@ -156,7 +156,7 @@ npm i -D prettier-plugin-organize-imports prettier-plugin-tailwindcss
     "typescriptreact"
   ],
 
-// 启用文件嵌套。
+  // 启用文件嵌套。
   "explorer.fileNesting.enabled": true,
   "explorer.fileNesting.patterns": {
     "*.ts": "$(capture).test.ts, $(capture).test.tsx",
@@ -170,24 +170,94 @@ npm i -D prettier-plugin-organize-imports prettier-plugin-tailwindcss
 Git 有很多的 hooks, 让我们在不同的阶段,对代码进行不同的操作,控制提交到仓库的代码的规范性,和准确性, 以下只是几个常用的钩子
 
 #### 提交的代码规范 husky
-pre-commit
-描述: 通过钩子函数,判断提交的代码是否符合规范
+
+安装husky
+
+```bash
+pnpm add --save-dev husky
+```
+
+初始化Husky，通过git钩子函数pre-commit判断提交的代码是否符合规范
+
+```bash
+pnpm exec husky init
+```
 
 #### 提交的信息规范 commitlint
-commit-msg
-描述: 通过钩子函数,判断 commit 信息是否符合规范
 
-#### 提交的代码影响
-pre-push
-描述: 通过钩子,执行测试,避免对以前的内容造成影响
+通过钩子函数commit-msg,判断 commit 信息是否符合规范
 
+```bash
+pnpm add -D @commitlint/config-conventional @commitlint/cli
+```
 
+可以在 package.json 内创建一个脚本：
 
-==================================
+```bash
+npm pkg set scripts.commitlint="commitlint --edit"
+echo "npm run commitlint \${1}" > .husky/commit-msg
+```
 
-### husky & lint-staged
+或者使用下面这个方式也行：
+
+```bash
+echo "npx --no -- commitlint --edit \$1" > .husky/commit-msg
+```
+
+在项目root目录下配置 commitlint 使用常规配置:
+
+新创建`commitlint.config.js`文件，写入如下代码：
+
+```js
+module.exports = {
+  extends: ['@commitlint/config-conventional'],
+  rules: {
+    'subject-case': [0],
+    'type-enum': [
+      2,
+      'always',
+      [
+        'feat', // 新功能 feature
+        'fix', // 修复 bug
+        'docs', // 更新文档注释
+        'style', // 美观化代码，修改代码格式(非CSS样式修改,不影响代码运行的变动)
+        'refactor', // 重构代码(既不增加新功能，也不是修复bug)
+        'perf', // 修改提高性能的代码
+        'test', // 增加测试用例
+        'chore', // 构建过程或辅助工具的变动,修改构建流程,依赖管理
+        'revert', // 回退代码
+        'release', // 发布新版本
+        'build', // 打包代码
+      ],
+    ],
+  },
+};
+```
+
+### lint-staged
 
 使用 husky 和 lin-staged 可以在 Git 提交代码时对提交的部分进行 ESLint 的代码校验和 prettier 的格式化，避免有些新同事编辑器中没有装对应插件和开启自动修复。安装配置也十分简单。
+
+```bash
+pnpm add --save-dev lint-staged
+```
+
+config
+
+```json
+ "lint-staged": {
+    "**/*.{js,jsx,ts,tsx,html,css,json}": ["pnpm prettier --write"]
+  }
+
+```
+
+修改.husky/pre-commit 文件中的内容为：
+
+```bash
+npx lint-staged
+```
+
+==================================
 
 ```bash
 npm install --save-dev husky lint-staged
