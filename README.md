@@ -287,14 +287,102 @@ module.exports = {
 
 ### Release It! 🚀
 
-手动安装它，并将 release 脚本添加到 package.json:
-
 ```bash
-pnpm install -D release-it
+pnpm install -D release-it @release-it/conventional-changelog
 
 ```
 
-先提交本地所有修改的代码之后，执行：
+安装完成之后，将 `release` 的配置添加到 `package.json`的`scripts`中:
+
+```json
+{
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "release": "release-it"
+  }
+}
+```
+
+使用`@release-it/conventional-changelog`可根据提交信息获取建议的 bump,此外，它还可以生成常规的变更日志，并可以选择在此过程中更新 CHANGELOG.md 文件。
+
+添加`.release-it.json`配置：
+
+```json
+{
+  "git": {
+    "commitMessage": "release: v${version}"
+  },
+  "github": {
+    "release": true
+  },
+  "gitlab": {
+    "release": true,
+    "skipChecks": true
+  },
+  "npm": {
+    "publish": false
+  },
+  "hooks": {
+    "after:bump": "echo 更新版本成功!"
+  },
+  "plugins": {
+    "@release-it/conventional-changelog": {
+      "infile": "CHANGELOG.md",
+      "ignoreRecommendedBump": true,
+      "strictSemVer": true,
+      "preset": {
+        "name": "conventionalcommits",
+        "types": [
+          {
+            "type": "feat",
+            "section": "✨添加新功能"
+          },
+          {
+            "type": "fix",
+            "section": "🐛修复bug"
+          },
+          {
+            "type": "docs",
+            "section": "📚更新文档"
+          },
+          {
+            "type": "chore",
+            "section": "🔧修改配置文件"
+          },
+          {
+            "type": "style",
+            "hidden": "true",
+            "section": "🎨修改样式"
+          },
+          {
+            "type": "test",
+            "section": "✅测试代码",
+            "hidden": true
+          },
+          {
+            "type": "refactor",
+            "section": "🔨重构代码"
+          },
+          {
+            "type": "perf",
+            "section": "⚡优化性能",
+            "hidden": true
+          },
+          {
+            "type": "release",
+            "section": "📌发布版本",
+            "hidden": true
+          }
+        ]
+      }
+    }
+  }
+}
+```
+
+💥 先提交本地所有修改的代码之后，执行：
 
 ```bash
 pnpm run release
