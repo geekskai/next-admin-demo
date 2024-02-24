@@ -6,6 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "release": "release-it",
     "lint": "next lint",
     "prepare": "husky",
     "commitlint": "commitlint --edit"
@@ -32,6 +33,7 @@
     "prettier": "^3.2.5",
     "prettier-plugin-organize-imports": "^3.2.4",
     "prettier-plugin-tailwindcss": "^0.5.11",
+    "release-it": "^17.1.1",
     "tailwindcss": "^3.3.0",
     "typescript": "^5"
   }
