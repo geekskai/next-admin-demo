@@ -278,3 +278,9 @@ module.exports = {
   '**/*.{js,jsx,tsx,ts,less,md,json}': ['prettier --write'], // 这些格式的文件在提交时让 prettier 格式化
 };
 ```
+
+// 在项目文档中插入表情
+
+❌ 特别注意提交信息的格式，不符合规范的提交信息将无法提交, 每种提交类型的冒号之后必须要有英文的空格(fix: )，例如一个合格的提交：
+
+✅ `git commit -m "chore: Update build process"`
