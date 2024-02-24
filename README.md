@@ -1,4 +1,4 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 2024年最新的从0～1搭建一个完整而健全的Next.ts项目的架构
 
 ## Getting Started
 
@@ -14,28 +14,7 @@ pnpm dev
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
-
-###
+### feature
 
 ⚡ Next.js with App Router support
 🔥 Type checking TypeScript
@@ -43,20 +22,18 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 ✅ Strict Mode for TypeScript and React 18
 
 📏 Linter with ESLint (default NextJS, NextJS Core Web Vitals, Tailwind CSS and Airbnb configuration)
-
 💖 Code Formatter with Prettier
 🦊 Husky for Git Hooks
 🚫 Lint-staged for running linters on Git staged files
 🚓 Lint git commit with Commitlint
 📓 Write standard compliant commit messages with Commitizen
+🎁 Automatic changelog generation with Semantic Release
 
 🦺 Unit Testing with Jest and React Testing Library
 🧪 Integration and E2E Testing with Playwright
-
 🌐 Multi-language (i18n) with next-intl and Crowdin
 
 ☂️ Code coverage with Codecov
-🎁 Automatic changelog generation with Semantic Release
 🗂 VSCode configuration: Debug, Settings, Tasks and Extensions
 
 ### 代码规范
