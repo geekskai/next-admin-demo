@@ -234,6 +234,12 @@ module.exports = {
 };
 ```
 
+特别注意提交信息的格式，不符合规范的提交信息将无法提交, 每种提交类型(chore: )的冒号之后必须要有空格，例如：
+
+```bash
+git commit -m "chore: Update build process"
+```
+
 ### lint-staged
 
 使用 husky 和 lin-staged 可以在 Git 提交代码时对提交的部分进行 ESLint 的代码校验和 prettier 的格式化，避免有些新同事编辑器中没有装对应插件和开启自动修复。安装配置也十分简单。

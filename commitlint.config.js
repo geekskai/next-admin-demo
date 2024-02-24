@@ -21,3 +21,8 @@ module.exports = {
     ],
   },
 };
+
+/**
+ * 特别注意提交信息的格式，不符合规范的提交信息将无法提交, 每种提交类型的冒号之后必须要有空格，例如：
+ * git commit -m "chore: Update build process"
+ */
