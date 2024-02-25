@@ -17,24 +17,36 @@ bun dev
 ### feature
 
 ⚡ Next.js with App Router support
+
 🔥 Type checking TypeScript
+
 💎 Integrate with Tailwind CSS
+
 ✅ Strict Mode for TypeScript and React 18
 
 📏 Linter with ESLint (default NextJS, NextJS Core Web Vitals, Tailwind CSS and Airbnb configuration)
+
 💖 Code Formatter with Prettier
+
 🦊 Husky for Git Hooks
+
 🚫 Lint-staged for running linters on Git staged files
+
 🚓 Lint git commit with Commitlint
+
 📓 Write standard compliant commit messages with Commitizen
+
 🎁 Automatic changelog generation with Semantic Release
 
+🗂 VSCode configuration: Debug, Settings, Tasks and Extensions
+
 🦺 Unit Testing with Jest and React Testing Library
+
 🧪 Integration and E2E Testing with Playwright
+
 🌐 Multi-language (i18n) with next-intl and Crowdin
 
 ☂️ Code coverage with Codecov
-🗂 VSCode configuration: Debug, Settings, Tasks and Extensions
 
 ### 代码规范
 
@@ -245,7 +257,7 @@ const path = require('path');
 
 const buildEslintCommand = (filenames) =>
   `next lint --fix --file ${filenames
-    .map((f) => path.relative(process.cwd(), f))
+    .map((file) => path.relative(process.cwd(), file))
     .join(' --file ')}`;
 
 module.exports = {
