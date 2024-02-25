@@ -78,9 +78,9 @@ pnpm add --save-dev eslint-plugin-prettier eslint-config-prettier
 
 "extends": ["plugin:prettier/recommended"]做了三件事：
 
-1. 启用 eslint-plugin-prettier：这实际上将 Prettier 作为 ESLint 规则运行。这意味着任何 Prettier 发现的格式问题都会作为 ESLint 问题报告出来。
-2. 添加 prettier 到 ESLint 的配置中：这确保了 Prettier 的规则优先级最高，有助于解决其他 ESLint 规则可能与 Prettier 冲突的问题。
-3. 禁用与 Prettier 冲突的 ESLint 规则：通过内部使用 eslint-config-prettier，它自动关闭所有不必要的或可能与 Prettier 冲突的 ESLint 规则。
+1. 启用 `eslint-plugin-prettier`：这实际上将 `Prettier` 作为 `ESLint` 规则运行。这意味着任何 `Prettier` 发现的格式问题都会作为 `ESLint` 问题报告出来。
+2. 添加 `prettier` 到 `ESLint` 的配置中：这确保了 `Prettier` 的规则优先级最高，有助于解决其他 `ESLint` 规则可能与 `Prettier` 冲突的问题。
+3. 禁用与 `Prettier` 冲突的 `ESLint` 规则：通过内部使用 `eslint-config-prettier`，它自动关闭所有不必要的或可能与 `Prettier` 冲突的 `ESLint` 规则。
 
 #### 代码风格工具 Prettier
 
@@ -89,8 +89,8 @@ pnpm add -D prettier prettier-plugin-organize-imports prettier-plugin-tailwindcs
 
 ```
 
-我们使用了 Tailwind CSS 推荐额外安装 prettier-plugin-tailwindcss，可以帮忙自动排序 className。
-并且我们额外安装可以帮助排序 import 的插件：prettier-plugin-organize-imports
+我们使用了 `Tailwind CSS` 推荐额外安装 `prettier-plugin-tailwindcss`，可以帮忙自动排序 `className`。
+并且我们额外安装可以帮助排序 `import` 的插件：`prettier-plugin-organize-imports`
 
 接着在 `.prettierrc.json` 文件中配置如下：
 
@@ -108,7 +108,7 @@ pnpm add -D prettier prettier-plugin-organize-imports prettier-plugin-tailwindcs
 
 ### 同步编辑器设置和扩展
 
-在项目中加上 .vscode 文件夹，配置编辑器的扩展和自动校验和修复的设置，让其他同学接入项目也能快速上手和使用相同的配置、扩展。
+在项目中加上 `.vscode` 文件夹，配置编辑器的扩展和自动校验和修复的设置，让其他同学接入项目也能快速上手和使用相同的配置、扩展。
 
 `.vscode/extensions.json`
 
@@ -156,9 +156,9 @@ pnpm add -D prettier prettier-plugin-organize-imports prettier-plugin-tailwindcs
 
 ### git规范
 
-Git 有很多的 hooks, 让我们在不同的阶段,对代码进行不同的操作,控制提交到仓库的代码的规范性,和准确性, 以下只是几个常用的钩子
+Git 有很多的 `hooks`, 让我们在不同的阶段,对代码进行不同的操作,控制提交到仓库的代码的规范性,和准确性, 以下只是几个常用的钩子
 
-#### 提交的代码规范 husky
+#### 提交的代码规范 Husky
 
 安装husky
 
@@ -166,7 +166,7 @@ Git 有很多的 hooks, 让我们在不同的阶段,对代码进行不同的操�
 pnpm add --save-dev husky
 ```
 
-初始化Husky，通过git钩子函数pre-commit判断提交的代码是否符合规范
+初始化 `Husky`，通过`git`钩子函数`pre-commit`判断提交的代码是否符合规范
 
 ```bash
 pnpm exec husky init
@@ -174,13 +174,13 @@ pnpm exec husky init
 
 #### 提交的信息规范 commitlint
 
-通过钩子函数commit-msg,判断 commit 信息是否符合规范
+通过钩子函数`commit-msg`,判断 `commit` 信息是否符合规范
 
 ```bash
 pnpm add -D @commitlint/config-conventional @commitlint/cli
 ```
 
-可以在 package.json 内创建一个脚本：
+可以在 `package.json` 内创建一个脚本：
 
 ```bash
 npm pkg set scripts.commitlint="commitlint --edit"
@@ -193,7 +193,7 @@ echo "npm run commitlint \${1}" > .husky/commit-msg
 echo "npx --no -- commitlint --edit \$1" > .husky/commit-msg
 ```
 
-在项目root目录下新建`commitlint.config.js`文件，写入如下代码：
+在根目录下新建`commitlint.config.js`文件，写入如下代码：
 
 ```js
 module.exports = {
@@ -221,7 +221,7 @@ module.exports = {
 };
 ```
 
-特别注意提交信息的格式，不符合规范的提交信息将无法提交, 每种提交类型(chore: )的冒号之后必须要有空格，例如：
+特别注意提交信息的格式，不符合规范的提交信息将无法提交, 每种提交类型(`chore: `)的冒号之后必须要有空格，例如：
 
 ```bash
 git commit -m "chore: Update build process"
@@ -229,7 +229,7 @@ git commit -m "chore: Update build process"
 
 ### lint-staged
 
-使用 husky 和 lin-staged 可以在 Git 提交代码时对提交的部分进行 ESLint 的代码校验和 prettier 的格式化，避免有些新同事编辑器中没有装对应插件和开启自动修复。安装配置也十分简单。
+使用 `husky` 和 `lin-staged` 可以在 `Git` 提交代码时对提交的部分进行 `ESLint` 的代码校验和 `prettier` 的格式化，避免有些新同事编辑器中没有装对应插件和开启自动修复。安装配置也十分简单。
 
 ```bash
 pnpm add --save-dev lint-staged
@@ -244,7 +244,7 @@ config
 
 ```
 
-修改.husky/pre-commit 文件中的内容为：
+修改`.husky/pre-commit` 文件中的内容为：
 
 ```bash
 npx lint-staged
@@ -266,9 +266,7 @@ module.exports = {
 };
 ```
 
-// 在项目文档中插入表情
-
-❌ 特别注意提交信息的格式，不符合规范的提交信息将无法提交, 每种提交类型的冒号之后必须要有英文的空格(fix: )，例如一个合格的提交：
+❌ 特别注意提交信息的格式，不符合规范的提交信息将无法提交, 每种提交类型的冒号之后必须要有英文的空格(`fix: `)，例如一个合格的提交：
 
 ✅ `git commit -m "chore: Update build process"`
 
@@ -292,7 +290,7 @@ pnpm install -D release-it @release-it/conventional-changelog
 }
 ```
 
-使用`@release-it/conventional-changelog`可根据提交信息获取建议的 bump,此外，它还可以生成常规的变更日志，并可以选择在此过程中更新 CHANGELOG.md 文件。
+使用`@release-it/conventional-changelog`可根据提交信息获取建议的 bump,此外，它还可以生成常规的变更日志，并可以选择在此过程中更新 `CHANGELOG.md` 文件。
 
 添加`.release-it.json`配置：
 
