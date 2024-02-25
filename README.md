@@ -438,3 +438,60 @@ pnpm install -D jest jest-environment-jsdom @testing-library/react @testing-libr
 ```bash
 pnpm create jest@latest
 ```
+
+在`jest.config.ts`中：
+
+```js
+import type { Config } from "jest";
+import nextJest from "next/jest";
+
+const createJestConfig = nextJest({
+  // Provide the path to your Next.js app to load `next.config.js` and `.env` files in your test environment
+  dir: "./",
+});
+
+// Add any custom config to be passed to Jest
+const config: Config = {
+  moduleNameMapper: {
+    // Handle module aliases (this will be automatically configured for you soon)
+    "^@/(.*)$": "<rootDir>/src/$1",
+    "^@/public/(.*)$": "<rootDir>/public/$1",
+  },
+  setupFilesAfterEnv: ["<rootDir>/jest.setup.ts"],
+  clearMocks: true,
+  collectCoverage: true,
+  // The directory where Jest should output its coverage files
+  coverageDirectory: "coverage",
+  collectCoverageFrom: [
+    "./src/**/*.{js,jsx,ts,tsx}",
+    "!./src/**/_*.{js,jsx,ts,tsx}",
+    "!./src/**/*.stories.{js,jsx,ts,tsx}",
+    "!**/*.d.ts",
+    "!**/node_modules/**",
+  ],
+  coverageThreshold: {
+    global: {
+      branches: 0,
+      functions: 0,
+      lines: 0,
+      statements: 0,
+    },
+  },
+  testEnvironment: "jest-environment-jsdom",
+  testPathIgnorePatterns: ["<rootDir>/node_modules/"],
+};
+
+// createJestConfig is exported this way to ensure that next/jest can load the Next.js config which is async
+export default createJestConfig(config);
+
+```
+
+在`jest.setup.ts`中：
+
+```js
+import "@testing-library/jest-dom";
+
+import failOnConsole from "jest-fail-on-console";
+
+failOnConsole();
+```

@@ -1,4 +1,3 @@
-// FILEPATH: /Users/gankai/Desktop/span/videonut/tests/unit/replacePlaceholders.spec.ts
 import { replacePlaceholders } from "@/hooks/index";
 
 describe("replacePlaceholders", () => {
