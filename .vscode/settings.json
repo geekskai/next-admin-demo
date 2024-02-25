@@ -1,26 +1,25 @@
 {
-    // 默认情况下，对所有语言使用 Prettier 进行格式化
-      "editor.defaultFormatter": "esbenp.prettier-vscode",
-      "editor.formatOnSave": true,
-      "editor.codeActionsOnSave": {
-        "source.fixAll.eslint": true
-      },
-    // 使用 Prettier 格式化 JavaScript，覆盖 VSCode 默认设置。
-      "[javascript]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-      },
-    // 使用 ESLint 进行代码校验。
-      "eslint.validate": [
-        "javascript",
-        "javascriptreact",
-        "typescript",
-        "typescriptreact"
-      ],
-    // 启用文件嵌套。
-      "explorer.fileNesting.enabled": true,
-      "explorer.fileNesting.patterns": {
-        "*.ts": "$(capture).test.ts, $(capture).test.tsx",
-        "*.tsx": "$(capture).test.ts, $(capture).test.tsx"
-      }
+  // 默认情况下，对所有语言使用 Prettier 进行格式化
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+  // 使用 Prettier 格式化 JavaScript，覆盖 VSCode 默认设置。
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  // 使用 ESLint 进行代码校验。
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ],
+  // 启用文件嵌套。
+  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.patterns": {
+    "*.ts": "$(capture).test.ts, $(capture).test.tsx",
+    "*.tsx": "$(capture).test.ts, $(capture).test.tsx"
+  }
 }
-  

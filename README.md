@@ -197,24 +197,24 @@ echo "npx --no -- commitlint --edit \$1" > .husky/commit-msg
 
 ```js
 module.exports = {
-  extends: ['@commitlint/config-conventional'],
+  extends: ["@commitlint/config-conventional"],
   rules: {
-    'subject-case': [0],
-    'type-enum': [
+    "subject-case": [0],
+    "type-enum": [
       2,
-      'always',
+      "always",
       [
-        'feat', // 新功能 feature
-        'fix', // 修复 bug
-        'docs', // 更新文档注释
-        'style', // 美观化代码，修改代码格式(非CSS样式修改,不影响代码运行的变动)
-        'refactor', // 重构代码(既不增加新功能，也不是修复bug)
-        'perf', // 修改提高性能的代码
-        'test', // 增加测试用例
-        'chore', // 构建过程或辅助工具的变动,修改构建流程,依赖管理
-        'revert', // 回退代码
-        'release', // 发布新版本
-        'build', // 打包代码
+        "feat", // 新功能 feature
+        "fix", // 修复 bug
+        "docs", // 更新文档注释
+        "style", // 美观化代码，修改代码格式(非CSS样式修改,不影响代码运行的变动)
+        "refactor", // 重构代码(既不增加新功能，也不是修复bug)
+        "perf", // 修改提高性能的代码
+        "test", // 增加测试用例
+        "chore", // 构建过程或辅助工具的变动,修改构建流程,依赖管理
+        "revert", // 回退代码
+        "release", // 发布新版本
+        "build", // 打包代码
       ],
     ],
   },
@@ -253,16 +253,16 @@ npx lint-staged
 `.lintstagedrc.js`的配置如下
 
 ```js
-const path = require('path');
+const path = require("path");
 
 const buildEslintCommand = (filenames) =>
   `next lint --fix --file ${filenames
     .map((file) => path.relative(process.cwd(), file))
-    .join(' --file ')}`;
+    .join(" --file ")}`;
 
 module.exports = {
-  '*.{js,jsx,ts,tsx}': [buildEslintCommand], // 这些格式的文件在提交时交给 ESLint 校验
-  '**/*.{js,jsx,tsx,ts,less,md,json}': ['prettier --write'], // 这些格式的文件在提交时让 prettier 格式化
+  "*.{js,jsx,ts,tsx}": [buildEslintCommand], // 这些格式的文件在提交时交给 ESLint 校验
+  "**/*.{js,jsx,tsx,ts,less,md,json}": ["prettier --write"], // 这些格式的文件在提交时让 prettier 格式化
 };
 ```
 
@@ -425,4 +425,16 @@ pnpm install -D release-it @release-it/conventional-changelog
 
 ```bash
 pnpm run release
+```
+
+## 添加测试
+
+```bash
+pnpm install -D jest jest-environment-jsdom @testing-library/react @testing-library/jest-dom ts-node @types/jest jest-fail-on-console
+```
+
+通过运行以下命令生成基本的 Jest 配置文件：
+
+```bash
+pnpm create jest@latest
 ```
