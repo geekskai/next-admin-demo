@@ -296,21 +296,75 @@ pnpm install -D release-it @release-it/conventional-changelog
 
 ```json
 {
-  "git": {
-    "commitMessage": "release: v${version}"
+  "hooks": {
+    "after:bump": "echo 更新版本成功! 🚀"
   },
   "github": {
-    "release": true
+    "release": false,
+    "releaseName": "Release ${version}",
+    "releaseNotes": null,
+    "autoGenerate": false,
+    "preRelease": false,
+    "draft": false,
+    "tokenRef": "GITLAB_TOKEN",
+    "assets": null,
+    "host": null,
+    "timeout": 0,
+    "proxy": null,
+    "skipChecks": false,
+    "web": false,
+    "comments": {
+      "submit": false,
+      "issue": ":rocket: _This issue has been resolved in v${version}. See [${releaseName}](${releaseUrl}) for release notes._",
+      "pr": ":rocket: _This pull request is included in v${version}. See [${releaseName}](${releaseUrl}) for release notes._"
+    }
   },
   "gitlab": {
-    "release": true,
-    "skipChecks": true
+    "release": false,
+    "releaseName": "Release ${version}",
+    "releaseNotes": null,
+    "milestones": [],
+    "tokenRef": "GITLAB_TOKEN",
+    "tokenHeader": "Private-Token",
+    "certificateAuthorityFile": null,
+    "assets": null,
+    "origin": null,
+    "skipChecks": false
+  },
+  "git": {
+    "changelog": "git log --pretty=format:\"* %s (%h)\" ${from}...${to}",
+    "requireCleanWorkingDir": true,
+    "requireBranch": false,
+    "requireUpstream": true,
+    "requireCommits": false,
+    "requireCommitsFail": true,
+    "commitsPath": "",
+    "addUntrackedFiles": false,
+    "commit": true,
+    "commitMessage": "release: Release ${version}",
+    "commitArgs": [],
+    "tag": true,
+    "tagExclude": null,
+    "tagName": null,
+    "tagMatch": null,
+    "getLatestTagFromAllRefs": false,
+    "tagAnnotation": "Release ${version}",
+    "tagArgs": [],
+    "push": true,
+    "pushArgs": ["--follow-tags"],
+    "pushRepo": ""
   },
   "npm": {
-    "publish": false
-  },
-  "hooks": {
-    "after:bump": "echo 更新版本成功!"
+    "publish": false,
+    "publishPath": ".",
+    "publishArgs": [],
+    "tag": null,
+    "otp": null,
+    "ignoreVersion": false,
+    "allowSameVersion": false,
+    "versionArgs": [],
+    "skipChecks": false,
+    "timeout": 10
   },
   "plugins": {
     "@release-it/conventional-changelog": {
