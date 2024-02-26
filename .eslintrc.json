@@ -5,7 +5,7 @@
     "prettier" // 确保"prettier"插件已被添加
   ],
   "rules": {
-    // 你可以在这里覆盖特定的规则设置
-    "prettier/prettier": "error" // 或者使用"warn"，这样Prettier的错误将以警告的形式展示
+    // 可以在这里覆盖特定的规则设置
+    "prettier/prettier": ["error", { "endOfLine": "auto" }] // 或者使用"warn"，这样Prettier的错误将以警告的形式展示
   }
 }

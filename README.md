@@ -187,6 +187,8 @@ npm pkg set scripts.commitlint="commitlint --edit"
 echo "npm run commitlint \${1}" > .husky/commit-msg
 ```
 
+注意：如果在windows下面出现报错，请删除`commit-msg`文件，然后重新手动创建，将代码`npm run commitlint \${1}`复制进去
+
 或者使用下面这个方式也行：
 
 ```bash

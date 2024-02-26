@@ -3,6 +3,7 @@
     "prettier-plugin-organize-imports",
     "prettier-plugin-tailwindcss"
   ],
+  "endOfLine": "auto",
   "tailwindFunctions": ["classNames"],
   "trailingComma": "es5"
 }
