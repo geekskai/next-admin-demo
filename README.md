@@ -2,16 +2,32 @@
 
 ## Getting Started
 
-First, run the development server:
+### 请确保node版本在 `v20.8.0` 以上,使用 [pnpm](https://pnpm.io/next/installation) 作为包管理工具
+
+初次运行请先安装项目依赖：
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+pnpm install
+```
+
+运行本地开发环境：
+
+```bash
 pnpm dev
-# or
-bun dev
+```
+
+打包部署,生成`out`文件夹，注意：_需要先确保本地dev是关闭的情况下_ 运行下面的命令:
+
+```bash
+pnpm build
+```
+
+如果想预览打包之后的代码，可以在本地起一个服务器：
+
+```bash
+cd ./out
+
+npx http-server [path] [options]
 ```
 
 ### feature
@@ -58,20 +74,27 @@ bun dev
 2. eslint-config-prettier: 这是一个 ESLint 配置，用于关闭所有不必要的或可能与 Prettier 冲突的 ESLint 规则。当同时使用 ESLint 和 Prettier 时，一些 ESLint 规则可能与 Prettier 的格式化规则冲突，导致不一致的代码风格。通过使用 eslint-config-prettier，可以确保 ESLint 的规则不会干扰 Prettier 的代码格式化，从而保持代码风格的一致性。
 
 ```bash
-pnpm add --save-dev eslint-plugin-prettier eslint-config-prettier
+pnpm add --save-dev eslint-plugin-prettier eslint-config-prettier eslint-plugin-react-hooks
 ```
 
 `.eslintrc.json`
 
 ```json
 {
-  "extends": ["next/core-web-vitals", "plugin:prettier/recommended"],
+  "extends": [
+    "next/core-web-vitals",
+    "plugin:prettier/recommended",
+    "plugin:react-hooks/recommended"
+  ],
   "plugins": [
-    "prettier" // 确保"prettier"插件已被添加
+    "prettier", // 确保"prettier"插件已被添加
+    "react-hooks"
   ],
   "rules": {
     // 可以在这里覆盖特定的规则设置
-    "prettier/prettier": "error" // 或者使用"warn"，这样Prettier的错误将以警告的形式展示
+    "prettier/prettier": ["error", { "endOfLine": "auto" }], // 或者使用"warn"，这样Prettier的错误将以警告的形式展示 hooks 的规范
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn"
   }
 }
 ```
@@ -101,8 +124,7 @@ pnpm add -D prettier prettier-plugin-organize-imports prettier-plugin-tailwindcs
     "prettier-plugin-tailwindcss"
   ],
   "tailwindFunctions": ["classNames"],
-  "singleQuote": true,
-  "trailingComma": "es5"
+  "singleQuote": true
 }
 ```
 
@@ -144,12 +166,14 @@ pnpm add -D prettier prettier-plugin-organize-imports prettier-plugin-tailwindcs
     "typescript",
     "typescriptreact"
   ],
-
   // 启用文件嵌套。
   "explorer.fileNesting.enabled": true,
   "explorer.fileNesting.patterns": {
     "*.ts": "$(capture).test.ts, $(capture).test.tsx",
     "*.tsx": "$(capture).test.ts, $(capture).test.tsx"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   }
 }
 ```
@@ -187,7 +211,7 @@ npm pkg set scripts.commitlint="commitlint --edit"
 echo "npm run commitlint \${1}" > .husky/commit-msg
 ```
 
-注意：如果在windows下面出现报错，请删除`commit-msg`文件，然后重新手动创建，将代码`npm run commitlint \${1}`复制进去
+注意：如果在windows下面出现报错，请删除`commit-msg`文件，然后重新手动创建，将代码`npm run commitlint ${1}`复制进去
 
 或者使用下面这个方式也行：
 
@@ -237,22 +261,13 @@ git commit -m "chore: Update build process"
 pnpm add --save-dev lint-staged
 ```
 
-config
-
-```json
- "lint-staged": {
-    "**/*.{js,jsx,ts,tsx,html,css,json}": ["pnpm prettier --write"]
-  }
-
-```
-
 修改`.husky/pre-commit` 文件中的内容为：
 
 ```bash
 npx lint-staged
 ```
 
-`.lintstagedrc.js`的配置如下
+新建`.lintstagedrc.js`的配置如下
 
 ```js
 const path = require("path");
